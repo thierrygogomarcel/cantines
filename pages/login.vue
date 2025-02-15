@@ -1,80 +1,64 @@
 <template>
   <div class="max-w-md mx-auto">
-    <h2 class="text-3xl font-bold text-center mb-8">Sign In</h2>
-    <form @submit.prevent="handleSubmit" class="space-y-6">
-      <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-        <input
-          v-model="email"
-          type="email"
-          id="email"
-          required
-          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-        />
+    <div class="bg-white/80 backdrop-blur-md p-8 rounded-xl shadow-lg">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Connexion</h1>
+        <p class="mt-2 text-gray-600">Bienvenue sur GogoSoft</p>
       </div>
-      <div>
-        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-        <input
-          v-model="password"
-          type="password"
-          id="password"
-          required
-          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-        />
+      
+      <form @submit.prevent="handleLogin" class="space-y-6">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+          <input
+            id="email"
+            v-model="email"
+            type="email"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+            placeholder="vous@exemple.com"
+          />
+        </div>
+        
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
+          <input
+            id="password"
+            v-model="password"
+            type="password"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+            placeholder="••••••••"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+        >
+          Se connecter
+        </button>
+      </form>
+
+      <div class="mt-8 text-center">
+        <p class="text-sm text-gray-600">
+          Pas encore de compte ?
+          <NuxtLink to="/register" class="font-medium text-primary hover:text-primary/90 transition-colors">
+            S'inscrire
+          </NuxtLink>
+        </p>
       </div>
-      <div v-if="error" class="text-red-600 text-sm">{{ error }}</div>
-      <button
-        type="submit"
-        :disabled="loading"
-        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-      >
-        {{ loading ? 'Signing in...' : 'Sign In' }}
-      </button>
-    </form>
-    <p class="mt-4 text-center text-sm text-gray-600">
-      Don't have an account?
-      <NuxtLink to="/register" class="text-blue-600 hover:text-blue-500">Register</NuxtLink>
-    </p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { NhostClient } from '@nhost/nhost-js'; // Import Nhost client
-import { ref } from 'vue';
-import { useAuthStore } from '~/stores/auth'; // Assure-toi que tu as un store 'auth' ou adapte selon ton besoin
-
-const nhost = new NhostClient({
-  backendUrl: 'https://your-nhost-backend-url', // Remplace par l'URL de ton backend
-});
-
 const email = ref('');
 const password = ref('');
-const loading = ref(false);
-const error = ref('');
+const { login } = useAuth();
 
-const handleSubmit = async () => {
-  loading.value = true;
-  error.value = '';
-  
-  try {
-    // Utilisation de Nhost pour la connexion par email et mot de passe
-    const { session, error: signInError } = await nhost.auth.signIn({ email: email.value, password: password.value });
-    
-    if (signInError) {
-      throw signInError;
-    }
-
-    if (session) {
-      // Utilisation de ton store pour stocker les informations de l'utilisateur
-      const authStore = useAuthStore();
-      authStore.setUser(session.user);
-      navigateTo('/dashboard'); // Redirection vers le dashboard après connexion
-    }
-  } catch (e: any) {
-    error.value = e.message;
-  } finally {
-    loading.value = false;
+const handleLogin = async () => {
+  if (await login(email.value, password.value)) {
+    navigateTo('/dashboard');
   }
 };
 </script>
-

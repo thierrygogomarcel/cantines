@@ -1,10 +1,10 @@
-import { useAuthenticationStatus } from '@nhost/vue';
-
 export default defineNuxtRouteMiddleware((to) => {
-  const { isAuthenticated } = useAuthenticationStatus();
+  const { isAuthenticated } = useAuth();
 
-  // Redirection basée sur l'état d'authentification
-  if (!isAuthenticated.value && to.path !== '/login' && to.path !== '/register') {
+  // Routes publiques
+  const publicRoutes = ['/login', '/register', '/'];
+  
+  if (!isAuthenticated.value && !publicRoutes.includes(to.path)) {
     return navigateTo('/login');
   }
 
