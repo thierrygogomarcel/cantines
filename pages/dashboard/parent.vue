@@ -34,8 +34,25 @@
         </div>
       </div>
 
-      <!-- QR Code de l'enfant -->
+      <!-- QR Code de l'élève -->
       <QRCodeGenerator student-id="123456" />
+
+      <!-- Support -->
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Besoin d'aide ?</h2>
+        <div class="space-y-2">
+          <p class="text-gray-600">En cas de problème ou de bug, contactez :</p>
+          <div class="flex items-center space-x-2 text-gray-700">
+            <span class="font-medium">Thierry Gogo</span>
+            <span>-</span>
+            <span>Développeur Fullstack</span>
+          </div>
+          <div class="space-y-1 text-gray-600">
+            <p>📞 07 58 96 61 56</p>
+            <p>📧 2024dibo@gmail.com</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Modal de rechargement -->
@@ -78,9 +95,9 @@
                       v-model="ticketsToRecharge"
                       class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-600/20 focus:border-primary-600"
                     >
-                      <option value="5">5 tickets - 25€</option>
-                      <option value="10">10 tickets - 45€</option>
-                      <option value="20">20 tickets - 85€</option>
+                      <option value="5">5 tickets - 16 000 FCFA</option>
+                      <option value="10">10 tickets - 30 000 FCFA</option>
+                      <option value="20">20 tickets - 55 000 FCFA</option>
                     </select>
                   </div>
 
@@ -93,6 +110,7 @@
                     </button>
                     <PayPalButton
                       :amount="getAmount()"
+                      currency="XOF"
                       @success="handlePayPalSuccess"
                       @error="handlePayPalError"
                     />
@@ -122,9 +140,9 @@ const transactions = [
 
 const getAmount = () => {
   const prices = {
-    '5': 25,
-    '10': 45,
-    '20': 85
+    '5': 16000,
+    '10': 30000,
+    '20': 55000
   };
   return prices[ticketsToRecharge.value as keyof typeof prices];
 };

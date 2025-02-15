@@ -77,17 +77,7 @@ declare module 'nuxt/schema' {
       cdnURL: string,
    },
 
-   secret: {
-      nhostAdminSecret: string,
-
-      nhostWebhookSecret: string,
-
-      hasuraGraphqlAdminSecret: string,
-
-      hasuraGraphqlJwtSecret: string,
-
-      grafanaAdminPassword: string,
-   },
+   stripeSecretKey: string,
 
    nitro: {
       envPrefix: string,
@@ -98,15 +88,9 @@ declare module 'nuxt/schema' {
 
    nhostRegion: string,
 
-   urlHasura: string,
+   stripePublicKey: string,
 
-   urlAuth: string,
-
-   urlGraphql: string,
-
-   urlStorage: string,
-
-   urlFunctions: string,
+   paypalClientId: string,
   }
 }
 declare module 'vue' {

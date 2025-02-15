@@ -1,13 +1,15 @@
 export default defineNuxtConfig({
   modules: [
-    '@nhost/nuxt',
+   
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt'
   ],
+
   nhost: {
     subdomain: process.env.NHOST_SUBDOMAIN || 'local',
     region: process.env.NHOST_REGION || 'eu-central-1'
   },
+
   runtimeConfig: {
     public: {
       nhostSubdomain: process.env.NHOST_SUBDOMAIN || 'local',
@@ -17,6 +19,7 @@ export default defineNuxtConfig({
     },
     stripeSecretKey: process.env.STRIPE_SECRET_KEY
   },
+
   app: {
     head: {
       title: 'GogoSoft - Cantine Scolaire',
@@ -34,5 +37,7 @@ export default defineNuxtConfig({
       ]
     }
   },
-  devtools: { enabled: false }
+
+  devtools: { enabled: false },
+  compatibilityDate: '2025-02-15'
 })

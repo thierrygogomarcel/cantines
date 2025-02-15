@@ -2,7 +2,13 @@
 import type { DefineComponent, SlotsType } from 'vue'
 type IslandComponent<T extends DefineComponent> = T & DefineComponent<{}, {refresh: () => Promise<void>}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, SlotsType<{ fallback: { error: unknown } }>>
 interface _GlobalComponents {
-      'Presentation': typeof import("../components/presentation.vue")['default']
+      'Footer': typeof import("../components/Footer.vue")['default']
+    'Header': typeof import("../components/Header.vue")['default']
+    'MenuEditor': typeof import("../components/MenuEditor.vue")['default']
+    'PayPalButton': typeof import("../components/PayPalButton.vue")['default']
+    'QRCodeGenerator': typeof import("../components/QRCodeGenerator.vue")['default']
+    'QRCodeScanner': typeof import("../components/QRCodeScanner.vue")['default']
+    'Presentation': typeof import("../components/presentation.vue")['default']
     'NuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
     'NuxtLayout': typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
     'NuxtErrorBoundary': typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default']
@@ -26,7 +32,13 @@ interface _GlobalComponents {
     'Body': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
     'NuxtIsland': typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'NuxtRouteAnnouncer': IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
-      'LazyPresentation': typeof import("../components/presentation.vue")['default']
+      'LazyFooter': typeof import("../components/Footer.vue")['default']
+    'LazyHeader': typeof import("../components/Header.vue")['default']
+    'LazyMenuEditor': typeof import("../components/MenuEditor.vue")['default']
+    'LazyPayPalButton': typeof import("../components/PayPalButton.vue")['default']
+    'LazyQRCodeGenerator': typeof import("../components/QRCodeGenerator.vue")['default']
+    'LazyQRCodeScanner': typeof import("../components/QRCodeScanner.vue")['default']
+    'LazyPresentation': typeof import("../components/presentation.vue")['default']
     'LazyNuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
     'LazyNuxtLayout': typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
     'LazyNuxtErrorBoundary': typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary")['default']
@@ -56,6 +68,12 @@ declare module 'vue' {
   export interface GlobalComponents extends _GlobalComponents { }
 }
 
+export const Footer: typeof import("../components/Footer.vue")['default']
+export const Header: typeof import("../components/Header.vue")['default']
+export const MenuEditor: typeof import("../components/MenuEditor.vue")['default']
+export const PayPalButton: typeof import("../components/PayPalButton.vue")['default']
+export const QRCodeGenerator: typeof import("../components/QRCodeGenerator.vue")['default']
+export const QRCodeScanner: typeof import("../components/QRCodeScanner.vue")['default']
 export const Presentation: typeof import("../components/presentation.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
@@ -80,6 +98,12 @@ export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const NuxtRouteAnnouncer: IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
+export const LazyFooter: typeof import("../components/Footer.vue")['default']
+export const LazyHeader: typeof import("../components/Header.vue")['default']
+export const LazyMenuEditor: typeof import("../components/MenuEditor.vue")['default']
+export const LazyPayPalButton: typeof import("../components/PayPalButton.vue")['default']
+export const LazyQRCodeGenerator: typeof import("../components/QRCodeGenerator.vue")['default']
+export const LazyQRCodeScanner: typeof import("../components/QRCodeScanner.vue")['default']
 export const LazyPresentation: typeof import("../components/presentation.vue")['default']
 export const LazyNuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const LazyNuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
