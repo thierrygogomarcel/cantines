@@ -1,26 +1,15 @@
-
-import {defineNuxtConfig} from 'nuxt/config'
+import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
   modules: [
-  
-    '@nuxtjs/tailwindcss',
-    '@pinia/nuxt'
+    '@nuxtjs/tailwindcss'
   ],
-//@ts-ignore
-  nhost: {
-    subdomain: process.env.NHOST_SUBDOMAIN || 'local',
-    region: process.env.NHOST_REGION || 'eu-central-1'
-  },
 
   runtimeConfig: {
     public: {
-      nhostSubdomain: process.env.NHOST_SUBDOMAIN || 'local',
-      nhostRegion: process.env.NHOST_REGION || 'eu-central-1',
-      stripePublicKey: process.env.STRIPE_PUBLIC_KEY,
+      nhostUrl: process.env.NHOST_URL || 'http://localhost:1337',
       paypalClientId: process.env.PAYPAL_CLIENT_ID
-    },
-    stripeSecretKey: process.env.STRIPE_SECRET_KEY
+    }
   },
 
   app: {
