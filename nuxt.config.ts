@@ -1,10 +1,13 @@
+
+import {defineNuxtConfig} from 'nuxt/config'
+
 export default defineNuxtConfig({
   modules: [
-   
+  
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt'
   ],
-
+//@ts-ignore
   nhost: {
     subdomain: process.env.NHOST_SUBDOMAIN || 'local',
     region: process.env.NHOST_REGION || 'eu-central-1'

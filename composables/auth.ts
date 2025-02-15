@@ -1,105 +1,90 @@
-import { useNhostClient } from '@nhost/vue';
+import { ref, computed } from 'vue';
+import nhost from '~/utils/nhost'; // Importer le client Nhost
+import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
-import { Provider } from '@nhost/nhost-js';
 
 export const useAuth = () => {
-  const nhost = useNhostClient();
-  const auth = nhost.auth;
+  const router = useRouter();
 
-  const isAuthenticated = computed(() => auth.isAuthenticated());
-  const user = computed(() => auth.getUser());
+  const isAuthenticated = ref(false);
+  const user = ref(null);
   const userRole = computed(() => user.value?.metadata?.role || 'guest');
-  const userProfile = computed(() => ({
-    name: user.value?.displayName || '',
-    email: user.value?.email || '',
-    avatar: user.value?.avatarUrl || '',
-    phone: user.value?.phoneNumber || '',
-    metadata: user.value?.metadata || {}
-  }));
 
+  // Fonction pour récupérer les informations de l'utilisateur
+  const getUser = async () => {
+    const { data, error } = await nhost.auth.getUser();
+    if (error) {
+      console.error('Erreur lors de la récupération de l\'utilisateur :', error);
+    } else if (data) {
+      user.value = data;
+      isAuthenticated.value = true;
+    } else {
+      isAuthenticated.value = false;
+    }
+  };
+
+  // Connexion
   const login = async (email: string, password: string) => {
     try {
-      const { error } = await auth.signIn({ email, password });
-      if (error) throw error;
-      toast.success('Connexion réussie');
-      return true;
-    } catch (error: any) {
-      toast.error(error.message || 'Erreur de connexion');
-      return false;
-    }
-  };
-
-  const loginWithProvider = async (provider: Provider) => {
-    try {
-      const { error } = await auth.signIn({
-        provider,
-        options: {
-          scope: ['email', 'profile', 'phone', 'address']
-        }
-      });
-      if (error) throw error;
-      toast.success('Connexion réussie');
-      return true;
-    } catch (error: any) {
-      toast.error(error.message || 'Erreur de connexion');
-      return false;
-    }
-  };
-
-  const register = async (email: string, password: string, role: string) => {
-    try {
-      const { error } = await auth.signUp({
+      const { error } = await nhost.auth.signIn({
         email,
         password,
-        options: {
-          metadata: {
-            role,
-            location: {
-              city: '',
-              district: ''
-            }
-          }
-        }
       });
-      if (error) throw error;
-      toast.success('Inscription réussie');
-      return true;
-    } catch (error: any) {
-      toast.error(error.message || 'Erreur d\'inscription');
-      return false;
-    }
-  };
 
-  const updateProfile = async (data: {
-    displayName?: string;
-    phoneNumber?: string;
-    metadata?: {
-      location?: {
-        city?: string;
-        district?: string;
+      if (error) {
+        toast.error(`🚫 Erreur de connexion: ${error.message}`);
+        return { error };
       }
-    }
-  }) => {
-    try {
-      const { error } = await auth.updateUser(data);
-      if (error) throw error;
-      toast.success('Profil mis à jour');
-      return true;
+
+      toast.success('🎉 Connexion réussie! Bienvenue!');
+      await getUser();
+      router.push('/');
+      return { user: user.value };
     } catch (error: any) {
-      toast.error(error.message || 'Erreur de mise à jour du profil');
-      return false;
+      toast.error(`🚫 Une erreur est survenue: ${error.message}`);
+      return { error };
     }
   };
 
+  // Inscription
+  const register = async (email: string, password: string) => {
+    try {
+      const { error } = await nhost.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        toast.error(`🚫 Erreur d'inscription: ${error.message}`);
+        return { error };
+      }
+
+      toast.success('🎉 Inscription réussie! Bienvenue!');
+      await login(email, password); // Connexion après inscription
+      return { user: user.value };
+    } catch (error: any) {
+      toast.error(`🚫 Une erreur est survenue: ${error.message}`);
+      return { error };
+    }
+  };
+
+  // Déconnexion
   const logout = async () => {
     try {
-      const { error } = await auth.signOut();
-      if (error) throw error;
-      toast.success('Déconnexion réussie');
-      return true;
+      const { error } = await nhost.auth.signOut();
+
+      if (error) {
+        toast.error(`🚫 Erreur de déconnexion: ${error.message}`);
+        return { error };
+      }
+
+      toast.success('👋 À bientôt!');
+      user.value = null;
+      isAuthenticated.value = false;
+      router.push('/login');
     } catch (error: any) {
-      toast.error(error.message || 'Erreur de déconnexion');
-      return false;
+      toast.error(`🚫 Une erreur est survenue: ${error.message}`);
+      return { error };
     }
   };
 
@@ -107,11 +92,8 @@ export const useAuth = () => {
     isAuthenticated,
     user,
     userRole,
-    userProfile,
     login,
-    loginWithProvider,
     register,
-    updateProfile,
-    logout
+    logout,
   };
 };

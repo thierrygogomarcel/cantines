@@ -12,6 +12,7 @@
 
 ### À propos de Cantin2025
 
+
 Cantin2025 est une solution innovante de gestion de cantines scolaires qui modernise et simplifie la gestion quotidienne des repas scolaires. Notre plateforme offre :
 
 - 🎫 Gestion numérique des tickets-repas

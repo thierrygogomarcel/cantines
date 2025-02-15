@@ -15,6 +15,7 @@
     "@nhost/nuxt": "^0.1.9",
     "@nhost/vue": "^2.9.1",
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "@paypal/paypal-js": "^8.2.0",
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/components": "^10.9.0",
     "@vueuse/core": "^10.9.0",
@@ -22,6 +23,7 @@
     "nuxt": "^3.9.0",
     "pinia": "^2.1.7",
     "qrcode.vue": "^3.4.1",
+    "vue": "^3.5.13",
     "vue-qrcode-reader": "^5.5.1",
     "vue3-toastify": "^0.2.1",
     "zod": "^3.22.4"
@@ -29,5 +31,8 @@
   "devDependencies": {
     "@types/node": "^20.11.24",
     "typescript": "^5.3.3"
+  },
+  "resolutions": {
+    "@nhost/nhost-js": "3.2.4"
   }
 }
