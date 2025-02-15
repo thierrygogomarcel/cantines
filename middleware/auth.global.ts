@@ -1,15 +1,13 @@
-// ~/middleware/auth.global.ts
-import { useAuth } from '@/composables/auth';
+import { useAuthenticationStatus } from '@nhost/vue';
 
 export default defineNuxtRouteMiddleware((to) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuthenticationStatus();
 
-  // Utiliser .value pour accéder à la valeur de isAuthenticated
+  // Redirection basée sur l'état d'authentification
   if (!isAuthenticated.value && to.path !== '/login' && to.path !== '/register') {
     return navigateTo('/login');
   }
 
-  // Si l'utilisateur est authentifié et tente d'accéder à la page de login ou d'enregistrement
   if (isAuthenticated.value && (to.path === '/login' || to.path === '/register')) {
     return navigateTo('/dashboard');
   }

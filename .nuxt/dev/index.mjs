@@ -688,8 +688,8 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
-    "nhostSubdomain": "your-subdomain",
-    "nhostRegion": "your-region",
+    "nhostSubdomain": "uzlgttsccgxwoiutatmp",
+    "nhostRegion": "eu-central-1",
     "urlHasura": "https://uzlgttsccgxwoiutatmp.hasura.eu-central-1.nhost.run/console",
     "urlAuth": "https://uzlgttsccgxwoiutatmp.auth.eu-central-1.nhost.run/v1",
     "urlGraphql": "https://uzlgttsccgxwoiutatmp.graphql.eu-central-1.nhost.run/v1",

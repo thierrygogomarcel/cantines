@@ -24,16 +24,27 @@
   </div>
 </template>
 
-<script setup lang="ts"> 
+<script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { NhostClient } from '@nhost/nhost-js';
+import { NhostClient, type User } from '@nhost/nhost-js'; // Importez User
 
 const nhost = new NhostClient({
   backendUrl: 'https://your-nhost-backend-url', // Remplace par l'URL de ton backend
 });
 
-const userSession = ref(null); // Stocker la session utilisateur
+const userSession = ref<User | null>(null); // Déclarez userSession avec le type User ou null
 const isAuthenticated = ref(false); // Variable pour vérifier l'authentification
+
+const handleSignOut = async () => {
+  try {
+    await nhost.auth.signOut();
+    userSession.value = null;
+    isAuthenticated.value = false;
+    console.log('User signed out successfully');
+  } catch (error) {
+    console.error('Error signing out:', error);
+  }
+};
 
 onMounted(async () => {
   try {
@@ -51,5 +62,4 @@ onMounted(async () => {
     isAuthenticated.value = false;
   }
 });
-
 </script>

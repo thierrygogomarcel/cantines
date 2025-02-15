@@ -1,60 +1,89 @@
-import { NhostClient, type User } from '@nhost/nhost-js';
-import { ref } from 'vue';
+import { toast } from 'vue3-toastify';
+import { 
+  useAuthenticationStatus, 
+  useSignInEmailPassword, 
+  useSignUpEmailPassword, 
+  useSignOut, 
+  useUserData 
+} from '@nhost/vue';
+import { useRouter } from '#app';
 
-// Initialisez le client Nhost avec vos paramètres
-const nhost = new NhostClient({
-  backendUrl: 'https://your-nhost-backend-url', // Remplacez par l'URL de votre backend Nhost
-});
+export const useAuth = () => { 
+  const router = useRouter();
+  const { signInEmailPassword } = useSignInEmailPassword();
+  const { signUpEmailPassword } = useSignUpEmailPassword();
+  const { signOut } = useSignOut();
+  const { isAuthenticated } = useAuthenticationStatus();
+  const userData = useUserData();
 
-export const useAuth = () => {
-  // Initialiser 'user' avec un objet vide qui respecte la structure attendue
-  const user = ref<Partial<User> | null>(nhost.auth.getUser() || null);
-  const isAuthenticated = ref(!!user.value);
-
-  // Fonction de connexion
+  // Connexion
   const login = async (email: string, password: string) => {
     try {
-      const { session, error } = await nhost.auth.signIn({ email, password });
+      const { error } = await signInEmailPassword(email, password);
+
       if (error) {
-        throw new Error(error.message);
+        toast.error(`🚫 Erreur de connexion: ${error.message}`);
+        return { error };
       }
-      user.value = session?.user || null;
-      isAuthenticated.value = true;
-    } catch (error) {
-      console.error('Login failed:', error);
-      throw error;
+
+      toast.success('🎉 Connexion réussie! Bienvenue!');
+      router.push('/dashboard');
+      return { user: userData.value };
+    } catch (error: any) {
+      toast.error(`🚫 Une erreur est survenue: ${error.message}`);
+      return { error };
     }
   };
 
-  // Fonction d'inscription
+  // Inscription
   const register = async (email: string, password: string) => {
     try {
-      const { error } = await nhost.auth.signUp({ email, password });
+      const { error } = await signUpEmailPassword(email, password);
+
       if (error) {
-        throw new Error(error.message);
+        toast.error(`🚫 Erreur d'inscription: ${error.message}`);
+        return { error };
       }
-    } catch (error) {
-      console.error('Registration failed:', error);
-      throw error;
+
+      // Tentative de connexion automatique après inscription
+      const loginResult = await login(email, password);
+      if (loginResult.error) {
+        toast.info('✨ Compte créé! Veuillez vous connecter.');
+        router.push('/login');
+        return { error: null };
+      }
+
+      toast.success('🎉 Inscription réussie! Bienvenue!');
+      return { user: loginResult.user };
+    } catch (error: any) {
+      toast.error(`🚫 Une erreur est survenue: ${error.message}`);
+      return { error };
     }
   };
 
-  // Fonction de déconnexion
+  // Déconnexion
   const logout = async () => {
     try {
-      await nhost.auth.signOut();
-      user.value = null;
-      isAuthenticated.value = false;
-    } catch (error) {
-      console.error('Logout failed:', error);
+      const { error } = await signOut();
+
+      if (error) {
+        toast.error(`🚫 Erreur de déconnexion: ${error.message}`);
+        return { error };
+      }
+
+      toast.success('👋 À bientôt!');
+      router.push('/login');
+    } catch (error: any) {
+      toast.error(`🚫 Une erreur est survenue: ${error.message}`);
+      return { error };
     }
   };
 
   return {
-    user,
     isAuthenticated,
     login,
     register,
     logout,
+    user: userData
   };
 };
