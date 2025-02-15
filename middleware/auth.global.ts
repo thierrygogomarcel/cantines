@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, userRole } = useAuth();
 
   // Routes publiques
   const publicRoutes = ['/login', '/register', '/'];
@@ -10,5 +10,19 @@ export default defineNuxtRouteMiddleware((to) => {
 
   if (isAuthenticated.value && (to.path === '/login' || to.path === '/register')) {
     return navigateTo('/dashboard');
+  }
+
+  // Redirection vers le tableau de bord approprié
+  if (to.path === '/dashboard') {
+    switch (userRole.value) {
+      case 'admin':
+        return navigateTo('/dashboard/admin');
+      case 'staff':
+        return navigateTo('/dashboard/staff');
+      case 'parent':
+        return navigateTo('/dashboard/parent');
+      default:
+        return navigateTo('/dashboard/guest');
+    }
   }
 });

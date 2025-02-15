@@ -1,6 +1,5 @@
 <template>
   <NuxtLayout>
-    <Presentation />
     <NuxtPage />
     <Vue3Toastify position="top-right" />
   </NuxtLayout>
@@ -11,8 +10,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f3f4f6;
-  color: #1f2937;
+  @apply bg-gray-50 text-gray-900;
 }
 
 .page-enter-active,
@@ -24,12 +22,5 @@ body {
 .page-leave-to {
   opacity: 0;
   transform: translateY(20px);
-}
-
-.parallax {
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 </style>

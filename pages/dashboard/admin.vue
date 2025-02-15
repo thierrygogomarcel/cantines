@@ -1,154 +1,80 @@
 <template>
-  <div>
-    <h1 class="text-3xl font-bold text-gray-900 mb-8">Tableau de bord Administrateur</h1>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Statistiques globales -->
-      <div class="bg-white p-6 rounded-lg shadow-sm">
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Statistiques Globales</h2>
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Tableau de bord Administrateur</h1>
+      <p class="mt-2 text-gray-600">Gestion globale de la cantine</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <!-- Statistiques -->
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Statistiques du jour</h2>
         <div class="space-y-4">
           <div>
-            <p class="text-sm text-gray-500">Utilisateurs totaux</p>
-            <p class="text-2xl font-bold text-primary">1,234</p>
+            <p class="text-sm text-gray-500">Repas servis</p>
+            <p class="text-2xl font-bold text-primary-600">127</p>
           </div>
           <div>
-            <p class="text-sm text-gray-500">Projets actifs</p>
-            <p class="text-2xl font-bold text-primary">89</p>
+            <p class="text-sm text-gray-500">Tickets vendus</p>
+            <p class="text-2xl font-bold text-primary-600">45</p>
           </div>
           <div>
-            <p class="text-sm text-gray-500">Revenus mensuels</p>
-            <p class="text-2xl font-bold text-primary">15,678 €</p>
+            <p class="text-sm text-gray-500">Recettes</p>
+            <p class="text-2xl font-bold text-green-600">225 €</p>
           </div>
         </div>
       </div>
 
-      <!-- Gestion des utilisateurs -->
-      <div class="bg-white p-6 rounded-lg shadow-sm">
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Gestion des Utilisateurs</h2>
+      <!-- Alertes -->
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Alertes</h2>
         <div class="space-y-4">
-          <div class="flex justify-between items-center">
-            <span class="text-sm text-gray-500">Nouveaux utilisateurs</span>
-            <span class="text-sm font-medium text-primary">+12 aujourd'hui</span>
+          <div class="flex items-center text-yellow-600">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span>Stock bas : Yaourts</span>
           </div>
-          <div class="flex justify-between items-center">
-            <span class="text-sm text-gray-500">Utilisateurs actifs</span>
-            <span class="text-sm font-medium text-green-500">85%</span>
+          <div class="flex items-center text-red-600">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>3 signalements aujourd'hui</span>
           </div>
-          <button class="mt-2 text-primary hover:text-primary/90">
-            Gérer les utilisateurs →
-          </button>
         </div>
       </div>
 
       <!-- Actions rapides -->
-      <div class="bg-white p-6 rounded-lg shadow-sm">
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Actions Rapides</h2>
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Actions rapides</h2>
         <div class="space-y-3">
-          <button class="w-full text-left px-4 py-2 rounded-md bg-gray-50 hover:bg-gray-100 text-gray-700">
-            Créer un utilisateur
+          <button class="w-full text-left px-4 py-2 rounded-md bg-gray-50 hover:bg-gray-100 text-gray-700 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Créer un menu
           </button>
-          <button class="w-full text-left px-4 py-2 rounded-md bg-gray-50 hover:bg-gray-100 text-gray-700">
-            Gérer les rôles
+          <button class="w-full text-left px-4 py-2 rounded-md bg-gray-50 hover:bg-gray-100 text-gray-700 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            Gérer les stocks
           </button>
-          <button class="w-full text-left px-4 py-2 rounded-md bg-gray-50 hover:bg-gray-100 text-gray-700">
+          <button class="w-full text-left px-4 py-2 rounded-md bg-gray-50 hover:bg-gray-100 text-gray-700 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
             Voir les rapports
           </button>
         </div>
       </div>
-
-      <!-- Liste des utilisateurs récents -->
-      <div class="col-span-full bg-white p-6 rounded-lg shadow-sm">
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Utilisateurs Récents</h2>
-        <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead>
-              <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Utilisateur
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Rôle
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Statut
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <tr v-for="user in recentUsers" :key="user.id">
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <img 
-                      :src="user.avatar" 
-                      :alt="user.name"
-                      class="h-8 w-8 rounded-full"
-                    />
-                    <div class="ml-4">
-                      <div class="text-sm font-medium text-gray-900">{{ user.name }}</div>
-                      <div class="text-sm text-gray-500">{{ user.email }}</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="text-sm text-gray-900">{{ user.role }}</span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span 
-                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
-                    :class="{
-                      'bg-green-100 text-green-800': user.status === 'Actif',
-                      'bg-yellow-100 text-yellow-800': user.status === 'En attente',
-                      'bg-red-100 text-red-800': user.status === 'Inactif'
-                    }"
-                  >
-                    {{ user.status }}
-                  </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <button class="text-primary hover:text-primary/90 mr-2">
-                    Éditer
-                  </button>
-                  <button class="text-red-600 hover:text-red-700">
-                    Supprimer
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
+
+    <!-- Gestion des menus -->
+    <MenuEditor />
   </div>
 </template>
 
 <script setup lang="ts">
-const recentUsers = [
-  {
-    id: 1,
-    name: 'John Doe',
-    email: 'john@example.com',
-    avatar: 'https://via.placeholder.com/32',
-    role: 'Utilisateur',
-    status: 'Actif'
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    avatar: 'https://via.placeholder.com/32',
-    role: 'Admin',
-    status: 'Actif'
-  },
-  {
-    id: 3,
-    name: 'Bob Johnson',
-    email: 'bob@example.com',
-    avatar: 'https://via.placeholder.com/32',
-    role: 'Utilisateur',
-    status: 'En attente'
-  }
-];
+import MenuEditor from '~/components/MenuEditor.vue';
 </script>

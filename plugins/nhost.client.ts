@@ -6,8 +6,12 @@ export default defineNuxtPlugin((nuxtApp) => {
   const runtimeConfig = useRuntimeConfig();
 
   const nhost = new NhostClient({
-    subdomain: 'local',
-    region: 'eu-central-1',
+    subdomain: runtimeConfig.public.nhostSubdomain,
+    region: runtimeConfig.public.nhostRegion,
+    clientStorageType: 'localStorage',
+    clientStorage: typeof window !== 'undefined' ? window.localStorage : undefined,
+    autoRefreshToken: true,
+    autoSignIn: true
   });
 
   provideNhostClient(nhost);
